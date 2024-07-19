@@ -1,4 +1,19 @@
 
+	Documentation fournie par doc openAI swagger
+	http://localhost:8085/v3/api-docs cette url permet d'avoir la documentation complète des methodes de l'API afin que l'utilisateurs de l'API sache tout sur les methodes
+
+	On peut importer une collection dans postman grace a ce lien pour tester notre API. Cela permet de plus avoir a entrer les url dans postman
+	car l'import de la collection fera ca automatiquement
+
+	Dans l'interface qui implémente un JPARepository on n'a pas besoin d'ecrire le corps des méthodes on écris juste les méthodes en suivant une convention
+	de nommage et le JPArepostory fera la bonne requete tout seul dans la base de donnée
+
+	Toujours utiliser les DTO pour communiquer avec le front en passant par les mappers(Front <---DTO-------->Entity)
+
+
+
+
+
 Cette partie du code dans la class main a permis de tester les operations CRUD à effectuer dans la base de donnée
 public static void main(String[] args) {
 		SpringApplication.run(EbankingBackendApplication.class, args);
@@ -110,8 +125,3 @@ TESTE DE LA COUCHE SERVICE SI TOUT SE PASSE BIEN EN BASE DE DE DONNEES AVANT DE 
 	}
 
 	---------------------------------------------------------------
-	Documentation fournie par doc openAI swagger
-	http://localhost:8085/v3/api-docs cette url permet d'avoir la documentation complète des methodes de l'API afin que l'utilisateurs de l'API sache tout sur les methodes
-
-	On peut importer une collection dans postman grace a ce lien pour tester notre API. Cela permet de plus avoir a entrer les url dans postman
-	car l'import de la collection fera ca automatiquement

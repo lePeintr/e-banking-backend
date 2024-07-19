@@ -11,4 +11,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<Customer> getAllCustomer();
     Customer getCustomerByEmail(String email);
     void deleteCustomer(Long customer_id);*/
+    List<Customer> findByNameContains(String keyword);
 }

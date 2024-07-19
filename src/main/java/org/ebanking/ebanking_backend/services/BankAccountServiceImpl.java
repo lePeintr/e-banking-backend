@@ -150,9 +150,12 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public void transfert(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException {
-            debit(accountIdSource,amount,"Transfer to "+accountIdDestination);
-            credit(accountIdDestination,amount,"credit from "+accountIdSource);
+    public void transfert(String accountSource, String accountDestination, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException {
+            System.out.println("accountSource: "+accountSource );
+            System.out.println("accountDestination: "+accountDestination );
+             System.out.println("amount: "+amount );
+            debit(accountSource,amount,"Transfer to "+accountDestination);
+            credit(accountDestination,amount,"credit from "+accountSource);
     }
 
     @Override
@@ -205,7 +208,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         BankAccount bankAccount = bankAccountRepository.findById(accountId).orElse(null);
         if(bankAccount == null)
             throw new BankAccountNotFoundException("Account not Found");
-        Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountId(accountId, PageRequest.of(page,size));
+        Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountIdOrderByOperationDateDesc(accountId, PageRequest.of(page,size));
         AccountHistoryDTO accountHistoryDTO = new AccountHistoryDTO();
         List<AccountOperationDTO>accountOperationDTOS =  accountOperations.getContent().stream().map(op->dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperationDTOs(accountOperationDTOS);
@@ -216,5 +219,14 @@ public class BankAccountServiceImpl implements BankAccountService {
         accountHistoryDTO.setTotalPages(accountOperations.getTotalPages());
 
         return accountHistoryDTO;
+    }
+
+    @Override
+    public List<CustomerDTO> listSearchCustomers(String keyword) {
+        List<Customer> customers=customerRepository.findByNameContains(keyword);
+        List<CustomerDTO> customerDTOS= customers.stream()
+                .map(customer->dtoMapper.fromCustomer(customer))
+                .collect(Collectors.toList());
+        return customerDTOS;
     }
 }
